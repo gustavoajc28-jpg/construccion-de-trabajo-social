@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Construcción de Trabajadores Sociales · Orientación académica</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@500;700&family=Source+Sans+3:wght@400;600&display=swap">
+<style>
+/* ===== Tokens de color: claro / oscuro (lila, púrpura y plata) ===== */
+:root{--bg:#f6f5fa;--surface:#fff;--ink:#1f1b2e;--muted:#58536e;--accent:#5b2a86;--accent-ink:#fff;--lilac:#e9e2f6;--lilac-line:#b9a3dc;--silver:#c9ccd6;--line:#dcd9e6;--focus:#7a4cb8;--logo-f:none;
+--serif:"Source Serif 4",Georgia,"Times New Roman",serif;--sans:"Source Sans 3",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#15121f;--surface:#1e1a2c;--ink:#ece9f6;--muted:#b6b1cd;--accent:#8a5cc7;--accent-ink:#fff;--lilac:#2b2342;--lilac-line:#6d58a3;--silver:#8d90a0;--line:#3a3350;--focus:#c2a8ee;--logo-f:invert(1);color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#15121f;--surface:#1e1a2c;--ink:#ece9f6;--muted:#b6b1cd;--accent:#8a5cc7;--accent-ink:#fff;--lilac:#2b2342;--lilac-line:#6d58a3;--silver:#8d90a0;--line:#3a3350;--focus:#c2a8ee;--logo-f:invert(1);color-scheme:dark}
+/* ===== Base ===== */
+*{box-sizing:border-box}
+html{scroll-padding-top:12px;height:100%}
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font:400 1.0625rem/1.6 var(--sans)}
+h1,h2,h3{font-family:var(--serif);line-height:1.2;margin:0 0 .5em}
+h1{font-size:clamp(2.1rem,6vw,3.4rem);font-weight:700}
+h2{font-size:clamp(1.5rem,4vw,2.1rem)}
+h3{font-size:1.2rem}
+p{margin:0 0 1em;max-width:68ch}
+a{color:var(--accent)}
+:focus-visible{outline:3px solid var(--focus);outline-offset:2px;border-radius:4px}
+.skip{position:absolute;left:-999px}.skip:focus{left:8px;top:8px;background:var(--surface);padding:8px 12px;z-index:9}
+.wrap{max-width:1040px;margin:0 auto;padding:0 20px}
+section{padding:48px 0;border-top:1px solid var(--line)}
+/* ===== Cabecera ===== */
+header{background:var(--surface);border-bottom:3px solid var(--silver)}
+.bar{display:flex;align-items:center;gap:16px;padding:12px 20px;max-width:1040px;margin:0 auto}
+.brand{display:flex;align-items:center;gap:10px;font:700 1rem/1.2 var(--serif);color:var(--accent);text-decoration:none}
+.brand img{height:44px;width:auto;filter:var(--logo-f)}
+.brand .sep{width:1px;height:34px;background:var(--silver)}
+.bar{flex-wrap:wrap}
+#tema{margin-left:auto}
+@media(max-width:700px){nav{order:3;flex:1 0 100%}}
+.escudos{display:flex;align-items:center;gap:20px;margin-bottom:24px}
+.escudos img{height:96px;width:auto;filter:var(--logo-f)}
+.escudos .sep{width:1px;height:80px;background:var(--silver)}
+nav{display:flex;gap:4px;overflow-x:auto;flex:1;scrollbar-width:thin}
+nav a{padding:8px 12px;border-radius:8px;text-decoration:none;color:var(--ink);white-space:nowrap;font-weight:600}
+nav a:hover{background:var(--lilac)}
+#tema{border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:8px;padding:8px 10px;cursor:pointer;font:inherit}
+/* ===== Inicio ===== */
+.hero{padding:56px 0 40px;border:0}
+.hero p.lead{font-size:1.2rem;color:var(--muted)}
+.entradas{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));margin-top:28px}
+.entrada{text-align:left;font:inherit;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-left:6px solid var(--lilac-line);border-radius:6px;padding:14px 16px;cursor:pointer}
+.entrada:hover{border-left-color:var(--accent);background:var(--lilac)}
+.entrada b{display:block;font-family:var(--serif);font-size:1.05rem}
+.entrada span{color:var(--muted);font-size:.95rem}
+/* ===== Portada con fotografías ===== */
+.portada{display:grid;gap:24px;align-items:start;margin-bottom:24px}
+@media(min-width:760px){.portada{grid-template-columns:minmax(0,1.25fr) minmax(0,1fr)}}
+figure{margin:0}
+figcaption{font-size:.9rem;color:var(--muted);margin-top:6px}
+.vert img{display:block;width:100%;aspect-ratio:1/1;object-fit:cover;object-position:center 35%;border-radius:6px;border:1px solid var(--line)}
+@media(min-width:760px){.vert img{aspect-ratio:4/5}}
+.ancha img{display:block;width:100%;height:auto;border-radius:6px;border:1px solid var(--line)}
+.ancha{margin-bottom:8px}
+/* ===== Campo profesional y evolución de las áreas ===== */
+.funciones{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));counter-reset:f;padding:0;margin:0;list-style:none}
+.funciones li{counter-increment:f;background:var(--surface);border:1px solid var(--line);border-top:4px solid var(--accent);border-radius:6px;padding:12px 16px;font-weight:600}
+.funciones li::before{content:counter(f);display:block;font:700 1.6rem var(--serif);color:var(--accent)}
+.epocas details{background:var(--surface);border:1px solid var(--line);border-radius:6px;margin-bottom:8px;padding:0 16px}
+.epocas summary{cursor:pointer;padding:12px 0;font:600 1.05rem var(--sans)}
+.epocas summary span{color:var(--muted);font-weight:400;margin-left:8px}
+.epocas .chips{margin-bottom:14px}
+/* ===== Niveles ===== */
+.dos{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+.caja{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:20px}
+.caja ul{margin:0;padding-left:1.2em}
+.caja li{margin:.3em 0}
+/* ===== Pestañas de líneas ===== */
+.tabs{display:flex;gap:6px;overflow-x:auto;border-bottom:2px solid var(--silver);margin-bottom:20px}
+.tabs button{font:600 1rem var(--sans);color:var(--muted);background:none;border:0;border-bottom:4px solid transparent;padding:12px 14px;cursor:pointer;white-space:nowrap}
+.tabs button[aria-selected="true"]{color:var(--accent);border-bottom-color:var(--accent);background:var(--lilac)}
+.panel h3{margin-top:1.4em}
+.chips{display:flex;flex-wrap:wrap;gap:8px;padding:0;margin:0 0 8px;list-style:none}
+.chips li,.chips button{background:var(--lilac);border:1px solid var(--lilac-line);border-radius:999px;padding:5px 12px;font:inherit;font-size:.97rem;color:var(--ink)}
+.chips button{cursor:pointer;text-decoration:underline;text-decoration-color:var(--lilac-line)}
+.chips button:hover{border-color:var(--accent)}
+.perfiles{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+.perfil{background:var(--surface);border:1px solid var(--line);border-top:4px solid var(--accent);border-radius:6px;padding:16px}
+.perfil h4{font:700 1.05rem var(--serif);margin:0 0 6px}
+.perfil p{margin:0;font-size:.98rem}
+/* ===== Campos laborales ===== */
+.campos{display:grid;gap:20px;grid-template-columns:minmax(0,1fr)}
+@media(min-width:760px){.campos{grid-template-columns:300px minmax(0,1fr)}}
+.lista{display:flex;flex-direction:column;gap:6px}
+.lista button{text-align:left;font:600 1rem var(--sans);background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:6px;padding:10px 12px;cursor:pointer}
+.lista button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.detalle{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:20px}
+.detalle h3{margin-top:1em}
+.detalle h3:first-child{margin-top:0}
+/* ===== Perfiles y pie ===== */
+.etq{font-size:.88rem;color:var(--muted);margin:0 0 6px}
+footer{border-top:3px solid var(--silver);background:var(--surface);padding:28px 0;color:var(--muted);font-size:.95rem}
+/* ===== Test de orientación ===== */
+.btn{display:inline-block;background:var(--accent);color:var(--accent-ink);border:1px solid var(--accent);border-radius:6px;padding:12px 18px;font:600 1rem var(--sans);text-decoration:none;cursor:pointer}
+.btn.sec{background:none;color:var(--accent)}
+fieldset{border:1px solid var(--line);border-radius:6px;background:var(--surface);margin:0 0 14px;padding:12px 16px}
+legend{font:700 1.05rem var(--serif);padding:0 6px}
+.opc{display:flex;gap:10px;align-items:flex-start;padding:8px 6px;border-radius:6px;cursor:pointer}
+.opc:hover{background:var(--lilac)}
+.opc input{margin-top:.35em;accent-color:var(--accent);width:1.1em;height:1.1em;flex:none}
+.acciones{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px}
+#resultado{background:var(--surface);border:1px solid var(--line);border-left:6px solid var(--accent);border-radius:6px;padding:20px;margin-top:20px}
+#resultado:empty{display:none}
+.rank{list-style:none;padding:0;margin:0 0 12px}
+.barra{display:block;height:8px;background:var(--lilac);border-radius:4px;margin:4px 0 10px}
+.barra i{display:block;height:100%;background:var(--accent);border-radius:4px}
+.pie{display:flex;align-items:center;flex-wrap:wrap;gap:10px;margin:16px 0 0;padding-top:16px;border-top:1px solid var(--line);color:var(--ink);font-weight:600}
+.pie svg{flex:none}
+.pie .lic{flex-basis:100%;font-weight:400;font-size:.95rem;color:var(--muted)}
+@media(prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+</style>
+</head>
+<body>
+<a class="skip" href="#contenido">Saltar al contenido</a>
+<header>
+  <div class="bar">
+    <a class="brand" href="#inicio">
+      <img src="escudo-unam.png" alt="Escudo de la Universidad Nacional Autónoma de México">
+      <img src="escudo-facultad.png" alt="Escudo de la Facultad de Trabajo Social">
+      <span class="sep" aria-hidden="true"></span><span>Facultad de<br>Trabajo Social</span>
+    </a>
+    <nav aria-label="Secciones">
+      <a href="#inicio">Inicio</a><a href="#campo">Campo profesional</a><a href="#niveles">Niveles de acción</a><a href="#lineas">Líneas</a><a href="#campos">Áreas de acción</a><a href="#test">Descubre tu línea</a><a href="#egreso">Perfiles de egreso</a>
+    </nav>
+    <button id="tema" type="button" aria-label="Cambiar entre tema claro y oscuro">Tema</button>
+  </div>
+</header>
+<main id="contenido">
+<section class="hero" id="inicio"><div class="wrap">
+  <div class="escudos">
+    <img src="escudo-unam.png" alt="">
+    <span class="sep" aria-hidden="true"></span>
+    <img src="escudo-facultad.png" alt="">
+  </div>
+  <h1>Construcción de Trabajadores Sociales</h1>
+  <div class="portada">
+    <div class="intro">
+      <p class="lead">¡Te damos la bienvenida! Pronto elegirás las asignaturas que definirán tu rumbo profesional en la Facultad de Trabajo Social (FACTS).</p>
+      <p>Esta página te ayuda a encontrar el área del Trabajo Social en la que quieres ejercer en el futuro.</p>
+      <p>Aquí conectas tus materias optativas de 5.º a 9.º semestre con las cuatro Líneas de Profundización de la Facultad. Explora cómo cada asignatura se vincula con ámbitos reales de trabajo (hospitales, juzgados, comunidades, colectivos y organismos de derechos humanos) y descubre el perfil que mejor se adapta a tu vocación.</p>
+      <p>Elige una línea para ver su enfoque, sus materias, las instituciones donde se ejerce la profesión y los perfiles de egreso que desarrolla.</p>
+    </div>
+    <figure class="vert"><img src="torre-rectoria.jpg" alt="Torre de Rectoría de la UNAM, en Ciudad Universitaria"><figcaption>Torre de Rectoría, Ciudad Universitaria</figcaption></figure>
+  </div>
+  <figure class="ancha"><img src="fachada-facultad.jpg" alt="Fachada de la Facultad de Trabajo Social con su nombre iluminado de noche"><figcaption>Facultad de Trabajo Social</figcaption></figure>
+  <div class="entradas" id="entradas"></div>
+  <p style="margin-top:20px"><a class="btn" href="#test">Hacer el test de orientación</a></p>
+</div></section>
+
+<section id="campo"><div class="wrap">
+  <h2>Campo profesional</h2>
+  <p>Según Valero Chávez (pp. 134-135), el campo es el conjunto de condiciones que hacen posible un acontecimiento, o el límite de validez y aplicabilidad de un objeto de conocimiento. Aplicado al Trabajo Social:</p>
+  <div class="dos">
+    <div class="caja"><h3>Clave conceptual y operativa</h3><p>Sirve para determinar las necesidades de formación y actualización de los trabajadores sociales y adecuarlas a las exigencias del desarrollo nacional.</p></div>
+    <div class="caja"><h3>Incidencia sobre lo social</h3><p>Se define por la incidencia de la profesión en lo social, la cual se organiza en diversas áreas de intervención.</p></div>
+    <div class="caja"><h3>Marco: la política social</h3><p>Valero Chávez la presenta de dos formas: como mediación del Estado para asegurar la continuidad de la sociedad y del sistema, o como resultado de movilizaciones sociales prolongadas.</p></div>
+  </div>
+  <h3 style="margin-top:1.6em">Funciones genéricas</h3>
+  <p>Dentro de ese campo se señalan cinco funciones genéricas, que se ejercen en las distintas áreas de acción:</p>
+  <ol class="funciones" role="list"><li>Investigación social</li><li>Orientación y gestoría</li><li>Administración</li><li>Educación social</li><li>Organización y promoción social</li></ol>
+</div></section>
+
+<section id="niveles"><div class="wrap">
+  <h2>Niveles de acción</h2>
+  <p>El Trabajo Social es una disciplina y profesión de las ciencias sociales orientada al diagnóstico, la intervención, la gestión y la evaluación de problemáticas que afectan a individuos, grupos y comunidades, en favor de los derechos humanos, la justicia social y el bienestar colectivo. Su ejercicio se organiza en dos niveles.</p>
+  <div class="dos">
+    <div class="caja"><h3>Nivel macro: cuatro Líneas de Profundización</h3><p>Ejes rectores y áreas académicas de especialización que establece el plan de estudios.</p><ul id="lista-lineas"></ul></div>
+    <div class="caja"><h3>Nivel operativo y laboral: nueve áreas profesionales</h3><p>Ramas de inserción laboral donde se ubican las instituciones y con las que se vinculan las materias.</p><ul id="lista-areas"></ul></div>
+  </div>
+</div></section>
+
+<section id="lineas"><div class="wrap">
+  <h2>Líneas de Profundización</h2>
+  <div class="tabs" role="tablist" aria-label="Líneas de Profundización" id="tabs"></div>
+  <div class="panel" id="panel" role="tabpanel" tabindex="0"></div>
+</div></section>
+
+<section id="campos"><div class="wrap">
+  <h2>Áreas de acción y competencias</h2>
+  <p>Selecciona un área laboral para ver dónde se ejerce, qué competencias se ponen en juego y con qué líneas se relaciona.</p>
+  <div class="campos"><div class="lista" id="lista-campos" role="group" aria-label="Áreas laborales"></div><div class="detalle" id="detalle" aria-live="polite"></div></div>
+  <h3 style="margin-top:2em">Cómo han cambiado las áreas de acción</h3>
+  <p>El campo es el espacio amplio, definido por la intervención en lo social y por la política social. Las áreas son sus divisiones concretas, es decir, los ámbitos (instituciones, sectores o poblaciones) donde se ejercen las funciones. Cambian según la época y las necesidades sociales. La comparación por autor y década muestra cómo se fueron ampliando: de la asistencia hospitalaria y escolar de los años cuarenta a la promoción sociocultural y los derechos humanos.</p>
+  <div class="epocas" id="epocas"></div>
+  <div class="caja" style="margin-top:16px"><h3>Definición de Trabajo Social</h3><p style="margin:0">Para Valero Chávez, el Trabajo Social es una disciplina que estudia al hombre en su situación social, mediante una tecnología social que permite determinar sus necesidades y carencias y promover su atención para lograr su bienestar social.</p></div>
+</div></section>
+
+<section id="test"><div class="wrap">
+  <h2>Descubre tu línea</h2>
+  <p>Responde seis preguntas sobre tus intereses. El resultado sugiere la línea con la que tienes más afinidad y las áreas laborales relacionadas. No es un diagnóstico ni limita tu elección.</p>
+  <form id="test-form" novalidate></form>
+  <p id="aviso" role="status" class="etq"></p>
+  <div id="resultado" aria-live="polite"></div>
+</div></section>
+
+<section id="egreso"><div class="wrap">
+  <h2>Perfiles profesionales de egreso</h2>
+  <div id="todos-perfiles"></div>
+</div></section>
+</main>
+<footer><div class="wrap">
+  <p>Información orientativa basada en el plan de estudios. La relación entre áreas laborales y líneas es una guía de exploración: consulta con tu tutor o con la coordinación académica antes de inscribir materias optativas.</p>
+  <p class="pie">
+    <svg viewBox="0 0 32 32" width="30" height="30" role="img" aria-label="Creative Commons"><circle cx="16" cy="16" r="14" fill="none" stroke="currentColor" stroke-width="2.5"/><path d="M13.5 12.5a4 4 0 1 0 0 7M22 12.5a4 4 0 1 0 0 7" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg>
+    <span>Facultad de Trabajo Social (FACTS) • Universidad Nacional Autónoma de México (UNAM)</span>
+    <span class="lic">Salvo los escudos institucionales y otro material de terceros, este contenido se distribuye bajo la licencia <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.es" rel="license noopener noreferrer" target="_blank">Creative Commons Atribución-NoComercial-CompartirIgual 4.0 Internacional (CC BY-NC-SA 4.0)</a>.</span>
+  </p>
+</div></footer>
+
+<script>
+/* ===== Datos: líneas, materias, instituciones y perfiles ===== */
+const LINEAS=[
+{n:"Salud y Medio Ambiente",enf:"Promoción de la salud, determinantes sociales, epidemiología comunitaria, gestión integral de riesgos y sustentabilidad socioambiental.",
+ int:["Salud Mental","Análisis Inferencial","TIC para Trabajo Social","Construcción de Redes Sociales de Apoyo"],
+ pro:["Política Pública en Salud","Promoción y Educación para la Intervención en Salud","Reducción de Riesgos","Demografía Social","Estrategias de Intervención en Salud","Sustentabilidad"],
+ ins:["IMSS","ISSSTE","Secretaría de Salud","Institutos Nacionales de Salud","Centros Comunitarios de Salud Mental","Protección Civil","ONG ambientales"],
+ per:[["Especialista en Trabajo Social Sanitario y Salud Mental","Diagnóstico biopsicosocial, atención familiar y grupal en entornos clínicos, facilitación de redes de apoyo y adherencia terapéutica."],["Gestor(a) de Riesgos Socioambientales y Epidemiología Social","Análisis sociodemográfico, mapas de riesgo, programas de prevención higiénico-sanitaria y respuesta a contingencias."]]},
+{n:"Violencias y Género",enf:"Derechos humanos, perspectiva de género, erradicación de violencias, mediación pacífica, diversidades y atención integral a víctimas.",
+ int:["Familias Diversas","Peritaje en Trabajo Social","Análisis Cualitativo","Salud Mental"],
+ pro:["Género y Violencias","Violencias e Inseguridad Pública","Diversidades e Identidad de Género","Mediación en Trabajo Social","Estrategias de Intervención en Violencias"],
+ ins:["Fiscalías Generales de Justicia","Juzgados Familiares y Penales","Centros de Justicia para las Mujeres (CJM)","Comisiones de Víctimas (CEAV)","Institutos y Secretarías de las Mujeres","Refugios"],
+ per:[["Perito(a) Social y Especialista en Mediación","Emisión y defensa oral de dictámenes periciales sociofamiliares, resolución pacífica de controversias y peritajes con perspectiva de género."],["Diseñador(a) e Interventor(a) en Violencias y Género","Primer contacto y contención en crisis, diseño de planes de protección para víctimas y proyectos comunitarios de prevención del delito."]]},
+{n:"Desarrollo Social y Humano",enf:"Reducción de desigualdades, política social, participación ciudadana, hábitat sustentable, economía social y fortalecimiento comunitario.",
+ int:["Análisis Inferencial","Análisis Cualitativo","Construcción de Redes Sociales de Apoyo","Psicología del Desarrollo Humano","TIC para Trabajo Social"],
+ pro:["Política Pública de Desarrollo Social","Pobreza y Desigualdad Social","Construcción de Ciudadanía y Sociedad Civil","Sustentabilidad","Estrategias de Intervención para el Desarrollo Social"],
+ ins:["Secretaría de Bienestar","DIF","Gobiernos locales y alcaldías","CONEVAL","Organismos internacionales (PNUD, CEPAL)","Institutos de vivienda","Cooperativas y fundaciones"],
+ per:[["Diseñador(a) y Evaluador(a) de Políticas Sociales","Monitoreo de indicadores de rezago y pobreza multidimensional, diseño de reglas de operación y evaluación de impacto de programas sociales."],["Facilitador(a) Comunitario(a) y de Hábitat Sustentable","Metodologías participativas, organización vecinal, gestión de proyectos de economía solidaria y desarrollo territorial."]]},
+{n:"Grupos de Atención Prioritaria",enf:"Inclusión social, interculturalidad, derechos humanos, accesibilidad universal y protección especializada a poblaciones en vulnerabilidad.",
+ int:["Familias Diversas","Psicología del Desarrollo Humano","Salud Mental","Construcción de Redes Sociales de Apoyo","Peritaje en Trabajo Social"],
+ pro:["Política Pública a Grupos de Atención Prioritaria","México Nación Multicultural y Lenguas Indígenas","Estrategias con Personas Migrantes, Repatriadas y Refugiadas","Estrategias con Grupos de Atención Prioritaria","Estrategias con Personas con Discapacidad"],
+ ins:["COMAR","INM","ACNUR","OIM","INPI","Centros de Rehabilitación e Inclusión (CRIT, CRI)","USAER y CAM","Procuradurías de Protección de Niñas, Niños y Adolescentes","Albergues especializados"],
+ per:[["Acompañante Humanitario en Movilidad Humana y Asilo","Asistencia humanitaria digna, estudios de arraigo e integración local y defensa de derechos humanos de personas migrantes y refugiadas."],["Gestor(a) de Inclusión y Accesibilidad para Discapacidad","Valoración sociofuncional, diseño de entornos y apoyos para la vida independiente e intermediación para la inclusión laboral y educativa."],["Mediador(a) Intercultural y Comunitario","Adecuación de servicios con pertinencia cultural y lingüística para comunidades indígenas y afrodescendientes, y combate a la discriminación estructural."]]}];
+
+/* Áreas laborales: lin = índices de las líneas con las que se relaciona (orientativo) */
+const AREAS=[
+{n:"Salud y Salud Mental",lin:[0],ins:"Hospitales, clínicas, centros de salud mental, adicciones y cuidados paliativos (IMSS, ISSSTE, SSA).",com:["Diagnóstico biopsicosocial","Atención familiar y grupal","Facilitación de redes de apoyo","Adherencia terapéutica"]},
+{n:"Justicia, Derechos Humanos y Peritaje",lin:[1],ins:"Juzgados, fiscalías, defensorías, comisiones de derechos humanos y centros de justicia para mujeres.",com:["Dictámenes periciales sociofamiliares","Defensa oral del peritaje","Mediación y resolución pacífica de controversias","Perspectiva de género"]},
+{n:"Comunitaria y Desarrollo Local",lin:[2],ins:"Gobiernos locales, alcaldías, municipios, comités vecinales y protección civil.",com:["Metodologías participativas","Organización vecinal","Gestión de proyectos territoriales","Respuesta a contingencias"]},
+{n:"Servicios Sociales y Bienestar",lin:[2],ins:"DIF, programas asistenciales, comedores comunitarios y secretarías de bienestar.",com:["Valoración socioeconómica","Diseño de reglas de operación","Monitoreo de indicadores de rezago","Evaluación de impacto de programas"]},
+{n:"Educación e Inclusión Escolar",lin:[3],ins:"Escuelas, universidades, USAER, CAM y áreas contra el acoso escolar.",com:["Intermediación para la inclusión educativa","Construcción de redes de apoyo","Prevención de violencias en el entorno escolar","Atención a familias"]},
+{n:"Migración, Movilidad Humana y Refugio",lin:[3],ins:"Albergues, COMAR, ACNUR, OIM e Instituto Nacional de Migración.",com:["Asistencia humanitaria digna","Estudios de arraigo e integración local","Defensa de derechos humanos","Intervención con pertinencia intercultural"]},
+{n:"Discapacidad y Accesibilidad",lin:[3],ins:"Centros de rehabilitación (CRIT, CRI), institutos de discapacidad y unidades de vida independiente.",com:["Valoración sociofuncional","Diseño de entornos y apoyos","Promoción de la vida independiente","Inclusión laboral"]},
+{n:"Tercer Sector, Organizaciones Civiles y Cooperación",lin:[2,3],ins:"ONG, fundaciones, agencias internacionales (PNUD, CEPAL) y colectivos comunitarios.",com:["Gestión de proyectos de economía solidaria","Construcción de ciudadanía y sociedad civil","Incidencia en política pública","Trabajo con colectivos"]},
+{n:"Investigación, Docencia, Gestión y Evaluación",lin:[0,2],ins:"Universidades, observatorios, CONEVAL, áreas de planeación y políticas públicas.",com:["Análisis inferencial y cualitativo","Diagnóstico sociodemográfico","Evaluación de políticas y programas","Uso de TIC en la intervención"]}];
+
+const $=s=>document.querySelector(s);
+const li=a=>a.map(x=>`<li>${x}</li>`).join("");
+let lineaActual=0,areaActual=0;
+
+/* ===== Inicio y niveles ===== */
+$("#entradas").innerHTML=LINEAS.map((l,i)=>`<button class="entrada" type="button" data-l="${i}"><b>${l.n}</b><span>Ver materias y áreas de acción</span></button>`).join("");
+$("#lista-lineas").innerHTML=li(LINEAS.map(l=>l.n));
+$("#lista-areas").innerHTML=li(AREAS.map(a=>a.n));
+
+/* ===== Pestañas de líneas (con teclado: flechas, Inicio, Fin) ===== */
+const tabs=$("#tabs");
+tabs.innerHTML=LINEAS.map((l,i)=>`<button role="tab" id="t${i}" aria-controls="panel" data-l="${i}">Línea ${i+1}: ${l.n}</button>`).join("");
+tabs.addEventListener("keydown",e=>{
+  const k={ArrowRight:1,ArrowLeft:-1}[e.key];
+  if(k||e.key==="Home"||e.key==="End"){e.preventDefault();
+    const n=e.key==="Home"?0:e.key==="End"?LINEAS.length-1:(lineaActual+k+LINEAS.length)%LINEAS.length;
+    mostrarLinea(n,false);$("#t"+n).focus();}
+});
+function mostrarLinea(i,ir){
+  lineaActual=i;const l=LINEAS[i];
+  LINEAS.forEach((_,j)=>{const t=$("#t"+j);t.setAttribute("aria-selected",j===i);t.tabIndex=j===i?0:-1;});
+  $("#panel").setAttribute("aria-labelledby","t"+i);
+  const rel=AREAS.map((a,j)=>a.lin.includes(i)?`<li><button type="button" data-a="${j}">${a.n}</button></li>`:"").join("");
+  $("#panel").innerHTML=`<h3 style="margin-top:0">${l.n}</h3><p><b>Enfoque.</b> ${l.enf}</p>
+  <h3>Materias intermedias clave (5.º y 6.º semestre)</h3><ul class="chips">${li(l.int)}</ul>
+  <h3>Materias de profundización (7.º a 9.º semestre)</h3><ul class="chips">${li(l.pro)}</ul>
+  <h3>Instituciones y espacios laborales</h3><ul class="chips">${li(l.ins)}</ul>
+  <h3>Áreas laborales relacionadas</h3><ul class="chips">${rel}</ul>
+  <h3>Perfiles de egreso</h3><div class="perfiles">${l.per.map(p=>`<div class="perfil"><h4>${p[0]}</h4><p>${p[1]}</p></div>`).join("")}</div>`;
+  if(ir)$("#lineas").scrollIntoView();
+}
+
+/* ===== Campos laborales ↔ competencias ↔ líneas ===== */
+$("#lista-campos").innerHTML=AREAS.map((a,i)=>`<button type="button" aria-pressed="false" data-a="${i}">${a.n}</button>`).join("");
+function mostrarArea(i,ir){
+  areaActual=i;const a=AREAS[i];
+  document.querySelectorAll("#lista-campos button").forEach((b,j)=>b.setAttribute("aria-pressed",j===i));
+  $("#detalle").innerHTML=`<h3>${a.n}</h3>
+  <h3>Dónde se ejerce</h3><p>${a.ins}</p>
+  <h3>Competencias del trabajador social</h3><ul class="chips">${li(a.com)}</ul>
+  <h3>Líneas de Profundización relacionadas</h3><ul class="chips">${a.lin.map(j=>`<li><button type="button" data-l="${j}">Línea ${j+1}: ${LINEAS[j].n}</button></li>`).join("")}</ul>
+  <p class="etq">Las materias de estas líneas se relacionan con las competencias descritas.</p>`;
+  if(ir)$("#campos").scrollIntoView();
+}
+
+/* ===== Perfiles de egreso (todas las líneas) ===== */
+$("#todos-perfiles").innerHTML=LINEAS.map((l,i)=>`<h3>Línea ${i+1}: ${l.n}</h3><div class="perfiles">${l.per.map(p=>`<div class="perfil"><h4>${p[0]}</h4><p>${p[1]}</p></div>`).join("")}</div>`).join("");
+
+/* ===== Eventos delegados: cualquier botón con data-l o data-a navega ===== */
+document.addEventListener("click",e=>{
+  const b=e.target.closest("button[data-l],button[data-a]");if(!b)return;
+  if(b.dataset.l!==undefined)mostrarLinea(+b.dataset.l,!b.closest("#tabs"));
+  else mostrarArea(+b.dataset.a,!b.closest("#lista-campos")&&!b.closest("#detalle"));
+});
+
+/* ===== Tema claro/oscuro (preferencia guardada si el navegador lo permite) ===== */
+const raiz=document.documentElement;
+try{const g=localStorage.getItem("tema");if(g)raiz.dataset.theme=g;}catch(_){}
+$("#tema").addEventListener("click",()=>{
+  const oscuro=raiz.dataset.theme?raiz.dataset.theme==="dark":matchMedia("(prefers-color-scheme:dark)").matches;
+  raiz.dataset.theme=oscuro?"light":"dark";
+  try{localStorage.setItem("tema",raiz.dataset.theme);}catch(_){}
+});
+
+/* ===== Test de orientación: cada opción suma un punto a la línea indicada por su índice ===== */
+const TEST=[
+{q:"¿Con qué situación social te gustaría trabajar primero?",o:["Personas con una enfermedad, una adicción o un riesgo sanitario o ambiental","Personas que viven violencia o están en un proceso legal","Comunidades con pobreza, rezago o poca participación ciudadana","Personas migrantes, indígenas, con discapacidad o infancias sin protección"]},
+{q:"¿En qué espacio te imaginas trabajando?",o:["Hospital, clínica o centro de salud mental","Fiscalía, juzgado o centro de justicia para mujeres","Alcaldía, dependencia de bienestar u organismo de políticas sociales","Albergue, centro de rehabilitación, escuela inclusiva u organismo de derechos humanos"]},
+{q:"¿Qué tarea te resulta más atractiva?",o:["Realizar diagnósticos biopsicosociales y acompañar procesos de salud","Elaborar dictámenes periciales o mediar conflictos","Diseñar y evaluar programas sociales o proyectos comunitarios","Gestionar apoyos y acompañar el ejercicio de derechos de poblaciones en vulnerabilidad"]},
+{q:"¿Qué materia de profundización te llama más la atención?",o:["Política pública en salud, reducción de riesgos o demografía social","Género y violencias, mediación o diversidades","Pobreza y desigualdad, o construcción de ciudadanía y sociedad civil","Lenguas indígenas, o estrategias con personas migrantes o con discapacidad"]},
+{q:"¿Qué escenario de trabajo prefieres?",o:["Entornos clínicos o de emergencia, con equipos de salud","Intervención en crisis y casos con implicaciones legales","Trabajo en territorio, con vecinos, organizaciones e indicadores","Trabajo directo con familias y grupos específicos, adaptando los servicios a su cultura o condición"]},
+{q:"¿Qué resultado te gustaría lograr en tu carrera?",o:["Mejorar la salud y la prevención en la población","Proteger a las víctimas y construir paz","Reducir desigualdades y fortalecer la organización social","Garantizar inclusión, accesibilidad e igualdad de trato"]}
+];
+const form=$("#test-form");
+/* El orden de las opciones rota en cada pregunta para evitar sesgo por posición */
+form.innerHTML=TEST.map((t,i)=>`<fieldset><legend>${i+1}. ${t.q}</legend>${[0,1,2,3].map(k=>(k+i)%4).map(j=>`<label class="opc"><input type="radio" name="q${i}" value="${j}"><span>${t.o[j]}</span></label>`).join("")}</fieldset>`).join("")+`<div class="acciones"><button class="btn" type="submit">Ver mi resultado</button><button class="btn sec" type="reset">Borrar respuestas</button></div>`;
+form.addEventListener("submit",e=>{
+  e.preventDefault();
+  const pts=[0,0,0,0],falta=[];
+  TEST.forEach((_,i)=>{const r=form.querySelector(`input[name="q${i}"]:checked`);r?pts[+r.value]++:falta.push(i+1);});
+  const res=$("#resultado");
+  if(falta.length){$("#aviso").textContent=`Falta responder la pregunta ${falta.join(", ")}.`;res.innerHTML="";return;}
+  $("#aviso").textContent="";
+  const ord=[0,1,2,3].sort((a,b)=>pts[b]-pts[a]),top=ord[0];
+  const cerca=ord.slice(1).filter(j=>pts[j]>=pts[top]-1);
+  const l=LINEAS[top];
+  res.innerHTML=`<h3 id="res-t" tabindex="-1" style="margin-top:0">Tu mayor afinidad: Línea ${top+1}, ${l.n}</h3><p>${l.enf}</p>
+  ${cerca.length?`<p>También muestras afinidad con ${cerca.map(j=>`la Línea ${j+1}: ${LINEAS[j].n}`).join(" y ")}.</p>`:""}
+  <h3>Áreas laborales relacionadas</h3><ul class="chips">${AREAS.map((a,j)=>a.lin.includes(top)?`<li><button type="button" data-a="${j}">${a.n}</button></li>`:"").join("")}</ul>
+  <h3>Respuestas por línea</h3><ul class="rank">${ord.map(j=>`<li>Línea ${j+1}: ${LINEAS[j].n}, ${pts[j]} de ${TEST.length}<span class="barra"><i style="width:${Math.round(pts[j]/TEST.length*100)}%"></i></span></li>`).join("")}</ul>
+  <div class="acciones"><button class="btn" type="button" data-l="${top}">Ver la Línea ${top+1} completa</button></div>
+  <p class="etq" style="margin-top:12px">Resultado orientativo. Coméntalo con tu tutor o con la coordinación académica antes de elegir optativas.</p>`;
+  res.scrollIntoView();$("#res-t").focus({preventScroll:true});
+});
+form.addEventListener("reset",()=>{$("#resultado").innerHTML="";$("#aviso").textContent="";});
+
+/* ===== Evolución de las áreas de acción, por autor y década ===== */
+const EPOCAS=[
+["Saavedra","Años 40",["Asilos","Hospitales","Escuelas","Empresa","Centros de trabajo","Campañas antituberculosas","Casa cuna","Comunidades","Urbanismo","Siniestros"]],
+["Castellanos","Años 50",["Familia y niños","Servicio social escolar","Psiquiátrico","Industrial","Médico social","Rehabilitación"]],
+["Macías","Años 60",["Salud y nutrición","Educación y cultura","Economía y trabajo","Familia y comunidad","Área técnica (investigación, planificación, administración)"]],
+["Ander Egg","Años 70",["Salud y hospitales","Bienestar familiar","Protección al menor","Vivienda","Desarrollo comunitario y rural","Seguridad social","Beneficencia","Sindical"]],
+["Kisnerman","Años 80",["Salud","Justicia","Educación","Empresas","Migraciones","Minoridad y familia","Promoción comunitaria","Vivienda y urbanismo","Seguridad social"]],
+["Valero Chávez","",["Sector salud (médico hospitalario, psiquiátrico)","Educación","Asistencial","Vivienda","Empleo","Prevención y readaptación","Docencia","Investigación","Desarrollo rural y municipal","Promoción sociocultural","Derechos humanos"]]];
+$("#epocas").innerHTML=EPOCAS.map((e,i)=>`<details${i===0?" open":""}><summary>${e[0]}${e[1]?`<span>${e[1]}</span>`:""}</summary><ul class="chips">${li(e[2])}</ul></details>`).join("");
+
+mostrarLinea(0,false);mostrarArea(0,false);
+</script>
+</body>
+</html>
